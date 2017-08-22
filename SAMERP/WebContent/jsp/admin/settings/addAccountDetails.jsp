@@ -16,12 +16,14 @@
 <link rel="stylesheet" href="/SAMERP/config/css/matrix-media.css" />
 <link href="/SAMERP/config/font-awesome/css/font-awesome.css" rel="stylesheet" />
 <link rel="stylesheet" href="/SAMERP/config/css/jquery.gritter.css" />
+<link rel="stylesheet" href="/SAMERP/config/css/bs_modal_transition.css" />
 
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
 <link href="https://fonts.googleapis.com/css?family=Bree+Serif" rel="stylesheet">
 
 </head>
 <style>
+
 #snackbar {
     visibility: hidden;
     min-width: 250px;
@@ -84,7 +86,9 @@ transition: all 0.3s;
     -webkit-transform: translate3d(0, -300px, 0);
     transform: translate3d(0, -300px, 0);
     opacity: 1;
-} */
+} 
+ */
+
 </style>
 <body onload="myFunction()">
 
@@ -180,6 +184,8 @@ transition: all 0.3s;
               <div class="form-actions" align="center">
                 <input class="btn btn-success" name="insertAccDetails" type="submit" value="OK" />
                 <input class="btn btn-danger" type="button" value="Cancel" />
+                
+                
                 <div id="status"></div>
               </div>
               
@@ -224,7 +230,7 @@ transition: all 0.3s;
                   <td style="text-align: center"><%=itr.next() %></td>
                   <td style="text-align: center"><%=itr.next() %></td>
                   <td style="text-align: center"><%=itr.next() %></td>
-                  <td style="text-align: center"><a href="#updateAccDetails" onclick="searchName(<%=accId %>)" data-toggle="modal">Update</a>|<a href="/SAMERP/AddAccountDetails?deleteId=<%=accId%>">Delete</a></td>
+                  <td style="text-align: center"><a class="tip" title="Update" href="#updateAccDetails" onclick="searchName(<%=accId %>)" data-toggle="modal"><i class="icon-pencil"></i></a>|<a class="tip" title="Delete" href="/SAMERP/AddAccountDetails?deleteId=<%=accId%>"><i class="icon-remove"></i></a></td>
                 </tr>
                 <%}} %>
               </tbody>
@@ -239,7 +245,7 @@ transition: all 0.3s;
 
 <!--end-main-container-part-->
 
-<div class="modal hide fade" id="updateAccDetails" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal hide fade zoom-out" id="updateAccDetails" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
