@@ -39,7 +39,13 @@ public class JcbPocDetails extends HttpServlet {
 		
 		String CustomerSearch = request.getParameter("q");
 		String CustomerPrint = request.getParameter("CustomerPrint");
+		String updateselect = request.getParameter("updateselect");
+		String update = request.getParameter("update");
+		String jcbpocid = request.getParameter("jcbpocid");
+		String deleteid =request.getParameter("deleteid");
+		
 		String custid=request.getParameter("custid");
+		
 		String vehicleid=request.getParameter("vehicle");
 		String chalanno=request.getParameter("chalanno");
 		String chalandate=request.getParameter("chalandate");
@@ -52,13 +58,7 @@ public class JcbPocDetails extends HttpServlet {
 		List details = null;
 		if (custid != null) {
 			String[] arrayOfString = chalandate.split("-");
-			
-			out.println(custid+"<custid>");
-			out.println(vehicleid+"<videhicle id>");
-			out.println(chalanno+"id<chalanno>");
-			out.println(chalandate+"<date>");
-			out.println(workhrs+"<work hr>");
-			out.println(vehiclerate+"<rate>");
+		
 			query = "INSERT INTO `jcbpoc_master`(`intjcbpocid`, `intcustid`, `intvehicleid`, `chalanno`, `data`, `workhr`, `rate`) VALUES (DEFAULT,'"+custid+"','"+vehicleid+"','"+chalanno+"','"+arrayOfString[2]+"-"+arrayOfString[1]+"-"+arrayOfString[0]+"','"+workhrs+"','"+vehiclerate+"')";
 
 			result = dao.executeCommand(query);
@@ -67,6 +67,39 @@ public class JcbPocDetails extends HttpServlet {
 				response.sendRedirect("jsp/admin/jcb-poc work/jcb-pocDetails.jsp");
 			} else {
 				out.print("something wrong");
+			}
+		}
+		if (update !=null && jcbpocid != null) {
+			String[] arrayOfString = chalandate.split("-");
+			query = "UPDATE `jcbpoc_master` SET `intvehicleid`='"+vehicleid+"',`chalanno`='"+chalanno+"',`data`='"+arrayOfString[2]+"-"+arrayOfString[1]+"-"+arrayOfString[0]+"',`workhr`='"+workhrs+"',`rate`='"+vehiclerate+"' WHERE `intjcbpocid`="+jcbpocid;
+
+			result = dao.executeCommand(query);
+
+			if (result == 1) {
+				response.sendRedirect("jsp/admin/jcb-poc work/jcb-pocDetails.jsp");
+			} else {
+				out.print("something wrong");
+			}
+		}
+		if (deleteid !=null) {
+			query = "DELETE FROM `jcbpoc_master` WHERE `intjcbpocid`="+deleteid;
+
+			result = dao.executeCommand(query);
+
+			if (result == 1) {
+				response.sendRedirect("jsp/admin/jcb-poc work/jcb-pocDetails.jsp");
+			} else {
+				out.print("something wrong");
+			}
+		}
+		if (updateselect != null) {
+			query="SELECT customer_master.`custname`,customer_master.address,customer_master.contactno,customer_master.rate,jcbpoc_master.`chalanno`,vehicle_details.vehicle_aliasname,jcbpoc_master.`data`,jcbpoc_master.`workhr`,jcbpoc_master.intjcbpocid FROM `jcbpoc_master`,customer_master,vehicle_details WHERE jcbpoc_master.intcustid=customer_master.intcustid AND jcbpoc_master.intvehicleid=vehicle_details.vehicle_id AND jcbpoc_master.intjcbpocid="+updateselect;
+			details=dao.getData(query);
+			
+			Iterator itr = details.iterator();
+			while (itr.hasNext()) {
+				out.print(itr.next() + "~");
+
 			}
 		}
 		if (CustomerPrint != null) {

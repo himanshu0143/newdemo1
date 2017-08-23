@@ -55,6 +55,7 @@
 
       </ul>
     </li>
+    <li><a href="/SAMERP/jsp/admin/jcb-poc work/jcb-pocDetails.jsp"><i class="fa fa-inbox"></i> <span>Jcb/Poc Work</span></a> </li>
     <li><a href="widgets.html"><i class="fa fa-inbox"></i> <span>Sale</span></a> </li>
     <li><a href="/SAMERP/jsp/admin/purchase/purchaseRawMaterial.jsp"><i class="fa fa-th"></i> <span>Purchase</span></a></li>
     <li><a href="/SAMERP/jsp/admin/settings/expenses.jsp"><i class="fa fa-money"></i> <span>Expenses</span></a> </li>

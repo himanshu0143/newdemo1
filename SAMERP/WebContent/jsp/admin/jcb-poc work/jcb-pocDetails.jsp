@@ -25,10 +25,10 @@
 	href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800'
 	rel='stylesheet' type='text/css'>
 
-<style type="text/css">	
-	#s2id_autogen1{
-	float: right;	
-	}
+<style type="text/css">
+#s2id_autogen3, #s2id_vehicle_update {
+	float: right;
+}
 </style>
 </head>
 <body>
@@ -115,9 +115,9 @@
 			<hr>
 			<div class="row-fluid">
 				<div class="span12">
-					<div class="widget-box">
-						<div class="alert alert-info" style="padding-left: 200px;">
-							<strong>Enter Party/Customer Name : </strong><input
+					<div class="widget-box" id="addWork" style="display: block;">
+						<div class="alert alert-info" style="padding-left: 180px;">
+							<strong>Enter Party/Customer Name <span class="badge badge-info">OR</span> Contact No : </strong><input
 								list="browsers" name="browser" id="editdata"
 								onkeyup="CustomerSearch(this.value)" onkeydown="CustomerPrint()"
 								autocomplete="off" required>
@@ -128,70 +128,160 @@
 
 						</div>
 						<div class="widget-content nopadding">
-						<form action="/SAMERP/JcbPocDetails.do" method="POST">
-							<table class=""
-								style="border-color: white; margin: 0 auto; width: 700px">
-								<tr>
-									<td colspan="2"><h4>Customer Detail</h4></td>
-								</tr>
-								<tr>
-									<td style="text-align: right;">Customer Name : <input
-										type="text" name="custname" id="custname" readonly="readonly"></td>
-									<td style="text-align: right;">Address : <input
-										type="text" name="address" id="address" readonly="readonly"></td>
-								</tr>
-								<tr>
-									<td style="text-align: right;">Contact NO : <input
-										type="text" name="contactno" id="contactno"
-										readonly="readonly"></td>
-									<td style="text-align: right;">Machine Rate :<input type="text" name="vehiclerate" id="vehiclerate" readonly="readonly">              
-									
-									<input type="hidden" name="custid" id="custid">
-									</td>
-								</tr>
-								<tr>
-									<td style="height: 2px;"></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td colspan="2"><h4>Work Detail</h4></td>
-								</tr>
-								<tr>
-									<td style="text-align: right;">Chalan NO : <input
-										type="text" name="chalanno" required="required"></td>
-										<% SysDate sd=new SysDate(); %>
-									<td style="text-align: right;">Date :<input type="text" name="chalandate" data-date-format="dd-mm-yyyy"
-										value="<%=sd.todayDate() %>" class="datepicker"> 
+							<form action="/SAMERP/JcbPocDetails.do" method="POST">
+								<table class=""
+									style="border-color: white; margin: 0 auto; width: 700px">
+									<tr>
+										<td colspan="2"><h4>Customer Detail</h4></td>
+									</tr>
+									<tr>
+										<td style="text-align: right;">Customer Name : <input
+											type="text" name="custname" id="custname" readonly="readonly"></td>
+										<td style="text-align: right;">Address : <input
+											type="text" name="address" id="address" readonly="readonly"></td>
+									</tr>
+									<tr>
+										<td style="text-align: right;">Contact NO : <input
+											type="text" name="contactno" id="contactno"
+											readonly="readonly"></td>
+										<td style="text-align: right;">Machine Rate :<input
+											type="text" name="vehiclerate" id="vehiclerate"
+											readonly="readonly"> <input type="hidden"
+											name="custid" id="custid">
+										</td>
+									</tr>
+									<tr>
+										<td style="height: 2px;"></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td colspan="2"><h4>Work Detail</h4></td>
+									</tr>
+									<tr>
+										<td style="text-align: right;">Chalan NO : <input
+											type="text" name="chalanno" required="required"></td>
+										<%
+											SysDate sd = new SysDate();
+										%>
+										<td style="text-align: right;">Date :<input type="text"
+											name="chalandate" data-date-format="dd-mm-yyyy"
+											value="<%=sd.todayDate()%>" class="datepicker">
 
-									</td>
-								</tr>
-								<% 
-									RequireData rd= new RequireData();
-									List Vehicle=rd.getVehicleList();
-									Iterator itr = Vehicle.iterator();
-								%>
-								<tr>
-									<td style="    padding-left: 60px;">Machine Name :<select name="vehicle" class="span8" style="float: right;">
-					                  <option></option>
-											<%while (itr.hasNext()) {%>
-											<option value="<%=itr.next()%>"><%=itr.next()%></option>
-											<%}%>
-									</select>
-              
-									</td>
-									<td style="text-align: right;">Work Hrs : <input
-										type="text" name="workhrs" placeholder="HH:MM" required="required"></td>
-								</tr>
-								<tr>
-									<td colspan="2" style="text-align: center;"><button
-											type="submit" name="insertorganizer" class="btn btn-success"">Submit</button>
-										<a href="/SAMERP/index.jsp"><button type="button"
-												class="btn btn-danger ">Exit</button></a></td>
-								</tr>
-							</table>
+										</td>
+									</tr>
+									<%
+										RequireData rd = new RequireData();
+										List Vehicle = rd.getVehicleList();
+										Iterator itr = Vehicle.iterator();
+									%>
+									<tr>
+										<td style="padding-left: 60px;">Machine Name :<select
+											name="vehicle" class="span8" style="float: right;">
+												<option></option>
+												<%
+													while (itr.hasNext()) {
+												%>
+												<option value="<%=itr.next()%>"><%=itr.next()%></option>
+												<%
+													}
+												%>
+										</select>
+
+										</td>
+										<td style="text-align: right;">Work Hrs : <input
+											type="text" name="workhrs" placeholder="HH:MM"
+											required="required"></td>
+									</tr>
+									<tr>
+										<td colspan="2" style="text-align: center;"><button
+												type="submit" name="insertorganizer" class="btn btn-success"">Submit</button>
+											<a href="/SAMERP/index.jsp"><button type="button"
+													class="btn btn-danger ">Exit</button></a></td>
+									</tr>
+								</table>
 							</form>
 						</div>
 					</div>
+<!-- 	=========================================update======================================== -->
+					<div class="widget-box" id="updateWork" style="display: none;">
+						<div class="alert alert-info" >
+						<h4><strong>Update Work Detail</strong></h4>
+
+						</div>
+						<div class="widget-content nopadding">
+							<form action="/SAMERP/JcbPocDetails.do?update=update" method="POST">
+								<table class=""
+									style="border-color: white; margin: 0 auto; width: 700px">
+									<tr>
+										<td colspan="2"><h4>Customer Detail</h4></td>
+									</tr>
+									<tr>
+										<td style="text-align: right;">Customer Name : <input
+											type="text" name="custname" id="custname_update" readonly="readonly"></td>
+										<td style="text-align: right;">Address : <input
+											type="text" name="address" id="address_update" readonly="readonly"></td>
+									</tr>
+									<tr>
+										<td style="text-align: right;">Contact NO : <input
+											type="text" name="contactno" id="contactno_update"
+											readonly="readonly"></td>
+										<td style="text-align: right;">Machine Rate :<input
+											type="text" name="vehiclerate" id="vehiclerate_update"
+											readonly="readonly"> <input type="hidden"
+											name="jcbpocid" id="jcbpocid_update">
+										</td>
+									</tr>
+									<tr>
+										<td style="height: 2px;"></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td colspan="2"><h4>Work Detail</h4></td>
+									</tr>
+									<tr>
+										<td style="text-align: right;">Chalan NO : <input
+											type="text" name="chalanno" id="chalanno_update" required="required"></td>
+										
+										<td style="text-align: right;">Date :<input type="text"
+											name="chalandate" id="chalandate_update" data-date-format="dd-mm-yyyy"
+											value="" class="datepicker">
+
+										</td>
+									</tr>
+									<%
+										RequireData urd = new RequireData();
+										List uVehicle = rd.getVehicleList();
+										Iterator uitr = Vehicle.iterator();
+									%>
+									<tr>
+										<td style="padding-left: 60px;">Machine Name :<select
+											name="vehicle" id="vehicle_update" class="span8" style="float: right;">
+												<option></option>
+												<%
+													while (uitr.hasNext()) {
+												%>
+												<option value="<%=uitr.next()%>"><%=uitr.next()%></option>
+												<%
+													}
+												%>
+										</select>
+
+										</td>
+										<td style="text-align: right;">Work Hrs : <input
+											type="text" name="workhrs" id="workhrs_update" placeholder="HH:MM"
+											required="required"></td>
+									</tr>
+									<tr>
+										<td colspan="2" style="text-align: center;"><button
+												type="submit" name="insertorganizer" class="btn btn-success"">Submit</button>
+											<a href="/SAMERP/index.jsp"><button type="button"
+													class="btn btn-danger ">Exit</button></a></td>
+									</tr>
+								</table>
+							</form>
+						</div>
+					</div>
+					
 				</div>
 			</div>
 
@@ -214,6 +304,7 @@
 										<th>Machine Name</th>
 										<th>Date</th>
 										<th>Work Hrs</th>
+										<th>Rate</th>
 										<th>Action</th>
 									</tr>
 								</thead>
@@ -224,9 +315,10 @@
 									String chalanno = "";
 									String vehiclename = "";
 									String date = "";
-									String workhr="";
-									String jcbpocid="";
-									
+									String workhr = "";
+									String rate="";
+									String jcbpocid = "";
+
 									if (details != null) {
 										System.out.println("in Print Invoice.jsp" + details);
 
@@ -241,7 +333,8 @@
 												vehiclename = itr2.next().toString();
 												date = itr2.next().toString();
 												workhr = itr2.next().toString();
-												jcbpocid =itr2.next().toString();
+												rate = itr2.next().toString();
+												jcbpocid = itr2.next().toString();
 									%>
 									<tr class="gradeX">
 										<td><%=srno%></td>
@@ -249,10 +342,11 @@
 										<td><%=chalanno%></td>
 										<td><%=vehiclename%></td>
 										<td><%=date%></td>
-										<td><%=workhr %></td>
+										<td><%=workhr%></td>
+										<td><%=rate%></td>
 										<td><a href="#update" data-toggle='modal'
 											onclick='getSr(<%=jcbpocid%>)'>Update</a> / <a
-											href="/SAMERP/AddCustomer.do?deleteid=<%=jcbpocid%>">Delete</a></td>
+											href="/SAMERP/JcbPocDetails.do?deleteid=<%=jcbpocid%>">Delete</a></td>
 									</tr>
 									<%
 										}
@@ -349,18 +443,58 @@
 			    }
 		}
 		//******************************************END Cutomer Print******************************************************************
-	</script>
+		//******************************************Update******************************************************************
+		function getSr(id){
+			var x = document.getElementById('updateWork');
+			var y = document.getElementById('addWork');
+		    if (x.style.display === 'none') {
+		        x.style.display = 'block';
+		        y.style.display = 'none';
+		    }
+		    window.scrollTo(0, 200);
+	    var xhttp;
+		xhttp = new XMLHttpRequest();
+		try{ 
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				var demoStr = this.responseText.split("~");
+				
+ 				document.getElementById("custname_update").value = demoStr[0];
+ 				document.getElementById("address_update").value = demoStr[1];
+ 				document.getElementById("contactno_update").value = demoStr[2];
+ 				document.getElementById("vehiclerate_update").value = demoStr[3];
+ 				document.getElementById("chalanno_update").value = demoStr[4];
+ 				document.getElementById("vehicle_update").value = demoStr[5];
+ 				var date=demoStr[6].split("-");
+ 				document.getElementById("chalandate_update").value = date[2]+"-"+date[1]+"-"+date[0];
+ 				document.getElementById("workhrs_update").value = demoStr[7];
+ 				document.getElementById("jcbpocid_update").value = demoStr[8];
+ 				
+			}
+
+		};
+		
+		xhttp.open("GET", "/SAMERP/JcbPocDetails.do?updateselect=" + id, true);
+		xhttp.send();
+		}
+		catch(e)
+		{
+			alert("Unable to connect to server");
+		}  
+}
+		</script>
 
 	<script src="/SAMERP/config/js/jquery.min.js"></script>
 	<script src="/SAMERP/config/js/jquery.ui.custom.js"></script>
 	<script src="/SAMERP/config/js/bootstrap.min.js"></script>
 	<script src="/SAMERP/config/js/bootstrap-colorpicker.js"></script>
 	<script src="/SAMERP/config/js/bootstrap-datepicker.js"></script>
-	<script src="/SAMERP/config/js/jquery.toggle.buttons.js"></script>
 	<script src="/SAMERP/config/js/masked.js"></script>
 	<script src="/SAMERP/config/js/jquery.uniform.js"></script>
 	<script src="/SAMERP/config/js/select2.min.js"></script>
+	<script src="/SAMERP/config/js/jquery.dataTables.min.js"></script>
 	<script src="/SAMERP/config/js/matrix.js"></script>
+	<script src="/SAMERP/config/js/matrix.tables.js"></script>
 	<script src="/SAMERP/config/js/matrix.form_common.js"></script>
 	<script src="/SAMERP/config/js/wysihtml5-0.3.0.js"></script>
 	<script src="/SAMERP/config/js/jquery.peity.min.js"></script>
@@ -368,6 +502,7 @@
 	<script>
 	$('.textarea_editor').wysihtml5();
 </script>
+
 
 
 
