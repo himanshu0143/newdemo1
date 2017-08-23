@@ -30,10 +30,12 @@ public class AddVehicles extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		GenericDAO gd = new GenericDAO();
 		
-		if(request.getParameter("submit")!=null)
+		if(request.getParameter("insertSubmitBtn")!=null)
 		{
+			
 			String vehicleType = request.getParameter("vehicle_type");	
 			System.out.println(vehicleType);
+			
 			String vehicleNo1 = request.getParameter("vehicleno1");
 			String vehicleNo2 = request.getParameter("vehicleno2");
 			String vehicleNo3 = request.getParameter("vehicleno3");
@@ -93,8 +95,10 @@ public class AddVehicles extends HttpServlet {
 	
 		}
 		
-		if(request.getParameter("submitbtn")!=null)
+		if(request.getParameter("updateSubmitBtn")!=null)
 		{
+			
+			String oldVehicleType = request.getParameter("oldvehicle_type");
 			String vehicleId = request.getParameter("Updatevehicle_id");
 			String vehicleType = request.getParameter("Updatevehicle_type");
 			String oldRate = request.getParameter("oldRate");
@@ -112,7 +116,7 @@ public class AddVehicles extends HttpServlet {
 			
 			if(updatestatus1>=1){
 				
-				if(!(oldRate.equals(UpdatedRate))){
+				if(!(oldRate.equals(UpdatedRate)) || !(oldVehicleType.equals(vehicleType)) ){
 					
 					String updateVehicleQuery = "update vehicle_details set vehicle_rate="+UpdatedRate+" where vehicle_type='"+vehicleType+"';";
 					int updatestatus = gd.executeCommand(updateVehicleQuery);

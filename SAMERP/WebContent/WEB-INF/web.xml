@@ -1,10 +1,10 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
   <display-name>SAMERP</display-name>
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
-  
   <servlet>
     <servlet-name>AddCustomer</servlet-name>
     <servlet-class>admin.settings.AddCustomer</servlet-class>
@@ -13,7 +13,6 @@
     <servlet-name>AddCustomer</servlet-name>
     <url-pattern>/AddCustomer.do</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <description></description>
     <servlet-name>AddSupplyMaterial</servlet-name>
@@ -31,8 +30,7 @@
     <servlet-name>AddVehicles</servlet-name>
     <url-pattern>/AddVehicles</url-pattern>
   </servlet-mapping>
-  
-   <servlet>
+  <servlet>
     <description></description>
     <servlet-name>AddAccountDetails</servlet-name>
     <servlet-class>admin.settings.AddAccountDetails</servlet-class>
@@ -41,7 +39,6 @@
     <servlet-name>AddAccountDetails</servlet-name>
     <url-pattern>/AddAccountDetails</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <description></description>
     <servlet-name>Expenses</servlet-name>
@@ -67,4 +64,13 @@
     <servlet-name>AddOrganization</servlet-name>
     <url-pattern>/AddOrganization</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>SaleSupply</servlet-name>
+    <servlet-class>admin.SaleSupply</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SaleSupply</servlet-name>
+    <url-pattern>/SaleSupply</url-pattern>
+  </servlet-mapping>
+
 </web-app>

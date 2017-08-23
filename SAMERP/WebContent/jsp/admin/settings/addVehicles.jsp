@@ -81,40 +81,7 @@
 </div>
 <!--close-top-serch-->
 <!--sidebar-menu-->
-<div id="sidebar"><a href="#" class="visible-phone"><i class="fa fa-home"></i> Dashboard</a>
-  <ul>
-    <li class="active"><a href="/SAMERP/index.jsp"><i class="fa fa-home"></i> <span>Dashboard</span></a> </li>
-    <li class="submenu"> <a href="#"><i class="fa fa-th-list"></i> <span>Settings</span> <span class="label label-important">1</span></a>
-      <ul>
-        <li><a href="/SAMERP/jsp/admin/settings/addMaterialSuppliers.jsp">Add Material Suppliers</a></li>
-        <li><a href="/SAMERP/jsp/admin/settings/addVehicles.jsp">Add Vehicles</a></li>
-        <li><a href="/SAMERP/jsp/admin/settings/addAccountDetails.jsp">Add Account Details</a></li>
-        
-      </ul>
-    <li> <a href="charts.html"><i class="fa fa-signal"></i> <span>Charts &amp; graphs</span></a> </li>
-    <li> <a href="widgets.html"><i class="fa fa-inbox"></i> <span>Widgets</span></a> </li>
-    <li><a href="tables.html"><i class="icon icon-th"></i> <span>Tables</span></a></li>
-    <li><a href="grid.html"><i class="icon icon-fullscreen"></i> <span>Full width</span></a></li>
-    <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Forms</span> <span class="label label-important">3</span></a>
-      <ul>
-        <li><a href="form-common.html">Basic Form</a></li>
-        <li><a href="form-validation.html">Form with Validation</a></li>
-        <li><a href="form-wizard.html">Form with Wizard</a></li>
-      </ul>
-    </li>
-    <li><a href="buttons.html"><i class="icon icon-tint"></i> <span>Buttons &amp; icons</span></a></li>
-    <li><a href="interface.html"><i class="icon icon-pencil"></i> <span>Eelements</span></a></li>
-    <li class="submenu"> <a href="#"><i class="icon icon-file"></i> <span>Addons</span> <span class="label label-important">5</span></a>
-      <ul>
-        <li><a href="index2.html">Dashboard2</a></li>
-        <li><a href="gallery.html">Gallery</a></li>
-        <li><a href="calendar.html">Calendar</a></li>
-        <li><a href="invoice.html">Invoice</a></li>
-        <li><a href="chat.html">Chat option</a></li>
-      </ul>
-    </li>
-  </ul>
-</div>
+<jsp:include page="../common/left_navbar.jsp"></jsp:include>
 <!--sidebar-menu-->
 
 <!--main-container-part-->
@@ -135,7 +102,7 @@
     %>
     <div class="widget-box">
         <div class="widget-title"> <span class="icon"> <i class="fa fa-align-justify"></i> </span>
-          <h5>Dealer Details </h5>
+          <h5>Vehicle Details </h5>
         </div>
         <div class="widget-content nopadding" >
           <form action="/SAMERP/AddVehicles" method="post" class="form-horizontal" name="form1">
@@ -174,8 +141,8 @@
             </div>
           
             <div class="form-actions" align="center">
-              <button type="submit" id="submitbtn" name="submit" class="btn btn-success">Submit</button> &nbsp;&nbsp;&nbsp;&nbsp;
-              <a href="" id="cancelbtn"  class="btn btn-danger">Exit</a>
+              <button type="submit" id="submitbtn" name="insertSubmitBtn" class="btn btn-success">Submit</button> &nbsp;&nbsp;&nbsp;&nbsp;
+              <a href="/SAMERP/index.jsp" id="cancelbtn"  class="btn btn-danger">Exit</a>
             </div>
           </form>
           
@@ -185,12 +152,8 @@
     
 	<div class="widget-box">
           <div class="widget-title"> <span class="icon"><i class="fa fa-th"></i></span>
-         <h5>Dealer List</h5>
-         <%
-	         List rowCountList = rd.getVehicleRowCount();
-	         String rowCount = rowCountList.get(0).toString();
-         %>
-            <span class="label label-important" name="dealerCount" id="dealerCount" style="height: 15px; width: 15px;"><p><%=rowCount %></p></span>
+         <h5>Vehicles List</h5>
+            
           </div>
           <div class="widget-content nopadding">
            <form name="form2" id="dealerTable" method="post">
@@ -263,6 +226,7 @@
 				              <label class="control-label"><span style="color: red;">*</span>Vehicle Type :</label>
 				              <div class="controls">
 				              		<input type="hidden" name="Updatevehicle_id" id="Updatevehicle_id" />
+				              		<input type="hidden" name="oldvehicle_type" id="oldvehicle_type" />
 				<!--                 <input type="text" class="span3" placeholder="Vehicle Type" onkeyup="this.value=this.value.toUpperCase()" name="vehicle_type" id="vehicle_type" required  /> -->
 				                <select class="span3" name="Updatevehicle_type" id="Updatevehicle_type" onchange="getRateText1()" required >
 				                	<option value=""> Select </option>
@@ -295,7 +259,7 @@
 				            </div>
 			            
 				            <div class="modal-footer">
-									<input type="submit" id="submitbtn" name="submitbtn" class="btn btn-primary" value="Update" />
+									<input type="submit" id="submitbtn" name="updateSubmitBtn" class="btn btn-primary" value="Update" />
 									<input type="button" id="cancelbtn" class="btn btn-danger" data-dismiss="modal" value="Cancel"/>
 							</div>
 						</div>
@@ -324,6 +288,7 @@ function searchName(id) {
 			
 			document.getElementById("Updatevehicle_id").value = demoStr[0];
 			document.getElementById("Updatevehicle_type").value = demoStr[1];
+			document.getElementById("oldvehicle_type").value = document.getElementById("Updatevehicle_type").value;
 			
 			var vehicleNumber = demoStr[2].split("-");
 			
@@ -344,15 +309,6 @@ function searchName(id) {
 	
 }
 
-function getSr(id){
-    $('form2')
-	var someVarName = id;
-	localStorage.setItem("someVarName", someVarName);
-	var f=document.getElementById("dealerTable");
-    f.action='/SAMERP/jsp/admin/settings/addVehicles.jsp?vehicleRowId='+id;
-    f.method="post";
-    f.submit();  
-}
 
 function showModal(){
 	var someVarName = localStorage.getItem("someVarName");
@@ -427,7 +383,6 @@ function getRateText1(){
 <script src="/SAMERP/config/js/matrix.form_validation.js"></script> 
 <script src="/SAMERP/config/js/jquery.wizard.js"></script> 
 <script src="/SAMERP/config/js/jquery.uniform.js"></script> 
-<script src="/SAMERP/config/js/select2.min.js"></script> 
 <script src="/SAMERP/config/js/matrix.popover.js"></script> 
 <script src="/SAMERP/config/js/jquery.dataTables.min.js"></script> 
 <script src="/SAMERP/config/js/matrix.tables.js"></script> 

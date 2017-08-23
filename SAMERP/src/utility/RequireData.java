@@ -9,6 +9,7 @@ public class RequireData
 	GenericDAO gd=new GenericDAO();
 	
 	//starts your methods here
+
 	
 	// himanshu start
 	public List getCustomerList() {
@@ -35,13 +36,6 @@ public class RequireData
 			return vehicleDetailsData;
 		}
 		
-		
-		public List getVehicleRowCount()
-		{
-			String vehicleRowCountQuery = "select count(*) from vehicle_details;";
-			List vehicleCount = gd.getData(vehicleRowCountQuery);
-			return vehicleCount;
-		}
 		
 	//--mukesh end
 	
@@ -83,6 +77,8 @@ public class RequireData
 	
 		//--sandeep end
 	
+	
+	
 	// sarang start
 	
 	public List getEmployeeData()
@@ -92,7 +88,38 @@ public class RequireData
 		return demoList;
 	}
 	
-		//--sarang end
+	public List getRowCount(String table_name)
+	{
+		String rowCountQuery = "select count(*) from "+table_name+";";
+		List rowCount = gd.getData(rowCountQuery);
+		return rowCount;
+	}
+	
+	public List getEmployeeRowData(String RowId)
+	{
+		String employeeRowDataQuery = "select emp_id, emp_name, emp_contactno, emp_type, emp_address from emplyoee_details where emp_id="+RowId+"; ";
+		List employeeDetailsData = gd.getData(employeeRowDataQuery);
+		System.out.println(employeeDetailsData);
+		return employeeDetailsData;
+	}
+	
+	public List getOrganizationData()
+	{
+		String demo="select organization_id, organization_name, organization_contactno1, organization_contactno2, organization_address, organization_email from organization_details";
+		List demoList=gd.getData(demo);
+		return demoList;
+	}
+	
+	public List getOrganizationRowData(String RowId)
+	{
+		String organizationRowDataQuery = "select organization_id, organization_name, organization_address, organization_contactno1, organization_contactno2, organization_email from organization_details where organization_id="+RowId+"; ";
+		List organizationDetailsData = gd.getData(organizationRowDataQuery);
+		System.out.println(organizationDetailsData);
+		return organizationDetailsData;
+	}
+		
+	
+	//--sarang end
 	
 	// vijay start
 	
