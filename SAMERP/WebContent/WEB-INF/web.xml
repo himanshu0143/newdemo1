@@ -72,4 +72,12 @@
     <servlet-name>AddOrganization</servlet-name>
     <url-pattern>/AddOrganization</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>SaleSupply</servlet-name>
+    <servlet-class>admin.SaleSupply</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SaleSupply</servlet-name>
+    <url-pattern>/SaleSupply</url-pattern>
+  </servlet-mapping>
 </web-app>

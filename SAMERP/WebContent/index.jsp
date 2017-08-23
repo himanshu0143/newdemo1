@@ -11,8 +11,8 @@
 <link rel="stylesheet" href="/SAMERP/config/css/fullcalendar.css" />
 <link rel="stylesheet" href="/SAMERP/config/css/matrix-style.css" />
 <link rel="stylesheet" href="/SAMERP/config/css/matrix-media.css" />
-<link href="/SAMERP/config/font-awesome/css/font-awesome.css" rel="stylesheet" />
 <link rel="stylesheet" href="/SAMERP/config/css/jquery.gritter.css" />
+<link href="/SAMERP/config/font-awesome/css/font-awesome.css" rel="stylesheet" />
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
 </head>
 <body>
@@ -29,10 +29,10 @@
 </div>
 <!--close-top-serch-->
 <!--sidebar-menu-->
-<div id="sidebar"><a href="#" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
+<div id="sidebar"><a href="#" class="visible-phone"><i class="fa fa-home"></i> Dashboard</a>
   <ul>
-    <li class="active"><a href="/SAMERP/index.jsp"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
-    <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Settings</span> <span class="label label-important">7</span></a>
+    <li class="active"><a href="/SAMERP/index.jsp"><i class="fa fa-home"></i> <span>Dashboard</span></a> </li>
+    <li class="submenu"> <a href="#"><i class="fa fa-th-list"></i> <span>Settings</span> <span class="label label-important">7</span></a>
       <ul>
         <li><a href="/SAMERP/jsp/admin/settings/addMaterialSuppliers.jsp">Add Material Supplier</a></li>
         <li><a href="/SAMERP/jsp/admin/settings/addEmployee.jsp">Add Employee</a></li>
@@ -42,12 +42,11 @@
         <li><a href="/SAMERP/jsp/admin/settings/addClient.jsp">Add Clients</a></li>
 </ul>
     <li> <a href="/SAMERP/jsp/admin/settings/expenses.jsp"><i class="icon icon-money"></i> <span>Expenses</span></a> </li>
+    <li> <a href="/SAMERP/jsp/admin/payment/payment.jsp"><i class="fa fa-inbox"></i> <span>Payment</span></a> </li>
+    <li><a href="tables.html"><i class="fa fa-th"></i> <span>Tables</span></a></li>
+    <li><a href="grid.html"><i class="fa fa-fullscreen"></i> <span>Full width</span></a></li>
+    <li class="submenu"> <a href="#"><i class="fa fa-th-list"></i> <span>Forms</span> <span class="label label-important">3</span></a>
 
-    <li> <a href="/SAMERP/jsp/admin/jcb-poc work/jcb-pocDetails.jsp"><i class="icon icon-inbox"></i> <span>JCB/POC Detail</span></a> </li>
-    <li> <a href="/SAMERP/jsp/admin/purchase/purchaseRawMaterial.jsp"><i class="icon icon-inbox"></i> <span>Purchase Raw Material</span></a> </li>
-    <li><a href="tables.html"><i class="icon icon-th"></i> <span>Tables</span></a></li>
-    <li><a href="grid.html"><i class="icon icon-fullscreen"></i> <span>Full width</span></a></li>
-    <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Forms</span> <span class="label label-important">3</span></a>
       <ul>
         <li><a href="form-common.html">Basic Form</a></li>
         <li><a href="form-validation.html">Form with Validation</a></li>
@@ -106,7 +105,7 @@ himanshu patel
 <script src="/SAMERP/config/js/matrix.js"></script> 
 <script src="/SAMERP/config/js/matrix.dashboard.js"></script> 
 <script src="/SAMERP/config/js/jquery.gritter.min.js"></script> 
-<script src="/SAMERP/config//SAMERP/config/js/matrix.interface.js"></script> 
+<script src="/SAMERP/config/js/matrix.interface.js"></script> 
 <script src="/SAMERP/config/js/matrix.chat.js"></script> 
 <script src="/SAMERP/config/js/jquery.validate.js"></script> 
 <script src="/SAMERP/config/js/matrix.form_validation.js"></script> 

@@ -204,7 +204,7 @@
                   <td style="text-align: center"><%=itr.next() %></td>
                   <td style="text-align: center"><a href="#">Update</a>|<a href="/SAMERP/addSupplyMaterial?deleteId=<%=mspId%>">Delete</a></td>
                 </tr>
-                <%}} %>
+                <%itr.next();}} %>
               </tbody>
             </table>
           </div>
@@ -245,7 +245,7 @@ function myFunction() {
 <script src="/SAMERP/config/js/matrix.js"></script> 
 <script src="/SAMERP/config/js/matrix.dashboard.js"></script> 
 <script src="/SAMERP/config/js/jquery.gritter.min.js"></script> 
-<script src="/SAMERP/config//SAMERP/config/js/matrix.interface.js"></script> 
+<script src="/SAMERP/config/js/matrix.interface.js"></script> 
 <script src="/SAMERP/config/js/matrix.chat.js"></script> 
 <script src="/SAMERP/config/js/jquery.validate.js"></script> 
 <script src="/SAMERP/config/js/matrix.form_validation.js"></script> 

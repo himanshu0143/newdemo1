@@ -30,10 +30,12 @@ public class AddVehicles extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		GenericDAO gd = new GenericDAO();
 		
-		if(request.getParameter("vehicle_type")!=null)
+		if(request.getParameter("insertSubmitBtn")!=null)
 		{
+			
 			String vehicleType = request.getParameter("vehicle_type");	
 			System.out.println(vehicleType);
+			
 			String vehicleNo1 = request.getParameter("vehicleno1");
 			String vehicleNo2 = request.getParameter("vehicleno2");
 			String vehicleNo3 = request.getParameter("vehicleno3");
@@ -41,7 +43,7 @@ public class AddVehicles extends HttpServlet {
 			String vehicleRate = request.getParameter("rateText");
 			
 			String vehicleNo = vehicleNo1+"-"+vehicleNo2+"-"+vehicleNo3+"-"+vehicleNo4;
-			String vehicleAlias = vehicleType +"_"+vehicleNo3+"-"+vehicleNo4;
+			String vehicleAlias = vehicleType +"_"+vehicleNo1+"-"+vehicleNo2+"-"+vehicleNo3+"-"+vehicleNo4;
 			System.out.println(vehicleAlias);
 			
 			String insertVehicleQuery = "insert into vehicle_details(vehicle_type, vehicle_number, vehicle_rate, vehicle_aliasname) values ('"+vehicleType+"', '"+vehicleNo+"', '"+vehicleRate+"', '"+vehicleAlias+"');";
@@ -49,6 +51,8 @@ public class AddVehicles extends HttpServlet {
 			
 			if(insertStatus==1){
 				System.out.println("insert successful");
+				String updateVehicleQuery = "update vehicle_details set vehicle_rate="+vehicleRate+" where vehicle_type='"+vehicleType+"';";
+				int updatestatus = gd.executeCommand(updateVehicleQuery);
 				request.setAttribute("status", "Vehicle Inserted Successfully");
 			}else{
 				System.out.println("insert fail");
@@ -91,9 +95,49 @@ public class AddVehicles extends HttpServlet {
 	
 		}
 		
-		if(request.getParameter("submitbtn")!=null)
+		if(request.getParameter("updateSubmitBtn")!=null)
 		{
-			out.println("hello");
+			
+			String oldVehicleType = request.getParameter("oldvehicle_type");
+			String vehicleId = request.getParameter("Updatevehicle_id");
+			String vehicleType = request.getParameter("Updatevehicle_type");
+			String oldRate = request.getParameter("oldRate");
+			String UpdatedRate = request.getParameter("UpdaterateText");
+			
+			String Updatevehicleno1 = request.getParameter("Updatevehicleno1");
+			String Updatevehicleno2 = request.getParameter("Updatevehicleno2");
+			String Updatevehicleno3 = request.getParameter("Updatevehicleno3");
+			String Updatevehicleno4 = request.getParameter("Updatevehicleno4");
+			
+			String vehicleNum = Updatevehicleno1+"-"+Updatevehicleno2+"-"+Updatevehicleno3+"-"+Updatevehicleno4;
+			
+			String updateVehicleQuery1 = "update vehicle_details set vehicle_number='"+vehicleNum+"', vehicle_type='"+vehicleType+"'  where vehicle_id='"+vehicleId+"';";
+			int updatestatus1 = gd.executeCommand(updateVehicleQuery1);
+			
+			if(updatestatus1>=1){
+				
+				if(!(oldRate.equals(UpdatedRate)) || !(oldVehicleType.equals(vehicleType)) ){
+					
+					String updateVehicleQuery = "update vehicle_details set vehicle_rate="+UpdatedRate+" where vehicle_type='"+vehicleType+"';";
+					int updatestatus = gd.executeCommand(updateVehicleQuery);
+					
+					if(updatestatus>=1){
+						System.out.println("update vehicle successful");
+						request.setAttribute("status", "Vehicle Updated Successfully");
+					}
+				}
+				request.setAttribute("status", "Vehicle Updated Successfully");
+				
+			}else{
+				
+				System.out.println("update vehicle fail");
+				request.setAttribute("status", "Vehicle Update Fail");
+			}
+			
+			
+			RequestDispatcher rd = request.getRequestDispatcher("jsp/admin/settings/addVehicles.jsp");
+			rd.forward(request, response);
+			
 		}
 		
 	}
