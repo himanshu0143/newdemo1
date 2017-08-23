@@ -11,8 +11,8 @@
 <link rel="stylesheet" href="/SAMERP/config/css/fullcalendar.css" />
 <link rel="stylesheet" href="/SAMERP/config/css/matrix-style.css" />
 <link rel="stylesheet" href="/SAMERP/config/css/matrix-media.css" />
-<link href="/SAMERP/config/font-awesome/css/font-awesome.css" rel="stylesheet" />
 <link rel="stylesheet" href="/SAMERP/config/css/jquery.gritter.css" />
+<link href="/SAMERP/config/font-awesome/css/font-awesome.css" rel="stylesheet" />
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
 </head>
 <body>
@@ -41,8 +41,8 @@
         <li><a href="/SAMERP/jsp/admin/settings/addVehicles.jsp">Add Vehicles</a></li>
         <li><a href="/SAMERP/jsp/admin/settings/addClient.jsp">Add Clients</a></li>
 </ul>
-    <li> <a href="/SAMERP/jsp/admin/settings/expenses.jsp"><i class="fa fa-money"></i> <span>Expenses</span></a> </li>
-    <li> <a href="widgets.html"><i class="fa fa-inbox"></i> <span>Widgets</span></a> </li>
+    <li> <a href="/SAMERP/jsp/admin/settings/expenses.jsp"><i class="icon icon-money"></i> <span>Expenses</span></a> </li>
+    <li> <a href="/SAMERP/jsp/admin/payment/payment.jsp"><i class="fa fa-inbox"></i> <span>Payment</span></a> </li>
     <li><a href="tables.html"><i class="fa fa-th"></i> <span>Tables</span></a></li>
     <li><a href="grid.html"><i class="fa fa-fullscreen"></i> <span>Full width</span></a></li>
     <li class="submenu"> <a href="#"><i class="fa fa-th-list"></i> <span>Forms</span> <span class="label label-important">3</span></a>
