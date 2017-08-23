@@ -15,9 +15,12 @@ import javax.servlet.http.Part;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.util.Iterator;
+import java.util.List;
 
 import dao.General.GenericDAO;
 import dao.dbconnect.DBConnection;
+import utility.RequireData;
 
 /**
  * Servlet implementation class addOrganization
@@ -54,84 +57,82 @@ public class AddOrganization extends HttpServlet {
 	
 		if(request.getParameter("insertorganizer")!=null){
 			
-			System.out.println("sarang1");
-			Part filePart=request.getPart("logo_upload");
-			System.out.println("sarang2");
 			String organizationname=request.getParameter("organizationname");
 			String address=request.getParameter("address");
 			String contactno1=request.getParameter("contactno1");
 			String contactno2=request.getParameter("contactno2");
-			String email=request.getParameter("email");
+			String email=request.getParameter("email");		
+			int status=0;
+			
+			String insertQuery="INSERT INTO organization_details(organization_name, organization_address, organization_contactno1, "
+					+ "organization_contactno2, organization_email) VALUES ('"+organizationname+"','"+address+"','"+contactno1+"','"+contactno2+"','"+email+"');";
+			
+			System.out.println("Q ===> "+insertQuery );
+			
+			status=gd.executeCommand(insertQuery);
 
-			InputStream inputStream = null;
-			
-			
-			
-			if (filePart != null) {
-		        // prints out some information for debugging
-		        System.out.println("name"+filePart.getName());
-		        System.out.println("size"+filePart.getSize());
-		        System.out.println("type"+filePart.getContentType());
-
-		        // obtains input stream of the upload file
-		        inputStream = filePart.getInputStream();
-		       }
-	
-			try 
+			if(status!=0)
 			{
-				System.out.println("try");
-				DBConnection dbcon=new DBConnection();
-				Connection con=dbcon.getConnection();
-				String sql="INSERT INTO organization_details (organization_name, organization_address, organization_contactno1, organization_contactno2, organization_email, organization_logo) value (?,?,?,?,?,?) ";
-				PreparedStatement pstmt = con.prepareStatement(sql);
-				
-				pstmt.setString(1,organizationname);
-				pstmt.setString(2,address);
-				pstmt.setString(3,contactno1);
-				pstmt.setString(4,contactno2);
-				pstmt.setString(5,email);
-				
-				if(inputStream!=null){
-					System.out.println("sarang31");
-		            pstmt.setBinaryStream(6, inputStream, (int) filePart.getSize());
-					//pstmt.setBlob(6, inputStream);
-					System.out.println("sarang4");
-				}
-				System.out.println("before query");
-				int status=pstmt.executeUpdate();
-				System.out.println("after query");
-				
-
-				if(status!=0)
-				{
-					System.out.println("organizer successfully inserted");
-					request.setAttribute("status", "Organization Inserted Successfully");
-					RequestDispatcher rd=request.getRequestDispatcher("jsp/admin/settings/addOrganization.jsp");
-					rd.forward(request, response);
-				}
-				else{
-					System.out.println("Fail to upload");
-				}
-				
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
+				System.out.println("organizer successfully inserted");
+				request.setAttribute("status", "Organization Inserted Successfully");
+				RequestDispatcher rd=request.getRequestDispatcher("jsp/admin/settings/addOrganization.jsp");
+				rd.forward(request, response);
+			}
+			else{
+				System.out.println("Fail to upload");
+			}
+		}
+		
+		if(request.getParameter("deleteId")!=null)
+		{
+			int delstatus=0;
+			String deleteQuery="Delete from organization_details where organization_id="+request.getParameter("deleteId");
+			delstatus=gd.executeCommand(deleteQuery);
+			if(delstatus!=0)
+			{
+				System.out.println("organization successfully deleted");
+				request.setAttribute("status", "Organization Deleted Successfully");
+				RequestDispatcher rd=request.getRequestDispatcher("jsp/admin/settings/addOrganization.jsp");
+				rd.forward(request, response);
 			}
 			
-			
-			
-			
-
-			
-			
+		}
 		
+		if(request.getParameter("organization_id")!=null)
+		{
+			String RowId=request.getParameter("organization_id");
+			RequireData rd=new RequireData();
+			List demoList=rd.getOrganizationRowData(RowId);
+			Iterator itr=demoList.iterator();
+			while(itr.hasNext())
+			{
+				out.print(itr.next()+",");
+			}
+		}
+		
+		if(request.getParameter("org_submitbtn")!=null)
+		{
 
+			String organization_id = request.getParameter("organization_id");
+			String organization_name = request.getParameter("organization_name");
+			String organization_address = request.getParameter("organization_address");
+			String contact_no1 = request.getParameter("contact_no1");
+			String contact_no2 = request.getParameter("contact_no2");
+			String email_id = request.getParameter("email_id");
+
+			String updateorganizationQuery = "update organization_details set organization_name='"+organization_name+"', organization_address='"+organization_address+"',"
+					+ " organization_contactno1='"+contact_no1+"', organization_contactno2='"+contact_no2+"', organization_email='"+email_id+"'  where organization_id='"+organization_id+"';";
+			System.out.println("Q===>"+updateorganizationQuery);
+			int updatestatus = gd.executeCommand(updateorganizationQuery);
 			
-//			out.print("<br>"+organizationname);
-//			out.print("<br>"+address);
-//			out.print("<br>"+contactno1);
-//			out.print("<br>"+contactno2);
-//			out.print("<br>"+email);
-//			out.print("<br>"+logo); 
+			if(updatestatus!=0){
+				request.setAttribute("status", "Organization Updated Successfully");
+			}else{
+				System.out.println("update fail");
+				request.setAttribute("status", "Organization Update Fail");
+			}
+			RequestDispatcher rd = request.getRequestDispatcher("jsp/admin/settings/addOrganization.jsp");
+			rd.forward(request, response);
 		}
 	}
 }

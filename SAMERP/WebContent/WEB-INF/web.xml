@@ -4,7 +4,6 @@
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
-  
   <servlet>
     <servlet-name>AddCustomer</servlet-name>
     <servlet-class>admin.settings.AddCustomer</servlet-class>
@@ -13,7 +12,6 @@
     <servlet-name>AddCustomer</servlet-name>
     <url-pattern>/AddCustomer.do</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <description></description>
     <servlet-name>AddSupplyMaterial</servlet-name>
@@ -64,5 +62,13 @@
   <servlet-mapping>
     <servlet-name>AddOrganization</servlet-name>
     <url-pattern>/AddOrganization</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>SaleSupply</servlet-name>
+    <servlet-class>admin.SaleSupply</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SaleSupply</servlet-name>
+    <url-pattern>/SaleSupply</url-pattern>
   </servlet-mapping>
 </web-app>
