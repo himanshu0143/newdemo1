@@ -2,6 +2,8 @@ package admin.settings;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,11 +15,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.omg.CORBA.Request;
 
 import dao.General.GenericDAO;
+import utility.RequireData;
 
 
 
 
-@WebServlet("/AddClient")
+
 public class AddClient extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -43,6 +46,7 @@ public class AddClient extends HttpServlet {
 		if(i==1)
 		{
 			System.out.println("inserted successfully");
+			request.setAttribute("status","Inserted Successfully");
 			RequestDispatcher rd=request.getRequestDispatcher("jsp/admin/settings/addClient.jsp");
 			rd.include(request, response);
 		}
@@ -62,6 +66,7 @@ public class AddClient extends HttpServlet {
 			if(data==1)
 			{
 				System.out.println("Deleted Successfully");
+				request.setAttribute("status","Deleted Successfully");
 				RequestDispatcher rd=request.getRequestDispatcher("jsp/admin/settings/addClient.jsp");
 				rd.include(request, response);
 			}else
@@ -72,10 +77,23 @@ public class AddClient extends HttpServlet {
 			}
 		}
 		
+		if(request.getParameter("updateid")!=null)
+		{
+			String RowId=request.getParameter("updateid");
+			RequireData rd=new RequireData();
+			List demoList=rd.setClientDetails(RowId);
+			Iterator itr=demoList.iterator();
+			while(itr.hasNext())
+			{
+				out.print(itr.next()+",");
+			}
+	
+		}
+		
 		if(request.getParameter("save")!=null)
 		{
 			
-						
+			String id=request.getParameter("Updateid");
 			String coname=request.getParameter("coname");
 			String cname=request.getParameter("cname");
 			String contactno1=request.getParameter("contactno1");
@@ -84,13 +102,14 @@ public class AddClient extends HttpServlet {
 			String address=request.getParameter("address");
 			int cbamount=Integer.parseInt(request.getParameter("bamount"));
 			
-			String query="update `client_details` set `client_orgnization_name`='"+coname+"',`client_name`='"+cname+"',`client_contactno1`='"+contactno1+"',`client_contactno2`='"+contactno2+"',`client_email`='"+email+"',`client_address`='"+address+"',`client_balance_amount`='"+cbamount+"' where `client_id`="+request.getParameter("update")+"";
+			String query="update `client_details` set `client_orgnization_name`='"+coname+"',`client_name`='"+cname+"',`client_contactno1`='"+contactno1+"',`client_contactno2`='"+contactno2+"',`client_email`='"+email+"',`client_address`='"+address+"',`client_balance_amount`='"+cbamount+"' where `client_id`="+id+"";
 			
 			int i=gd.executeCommand(query);
 			
 			if(i==1)
 			{
 				System.out.println("updated Successfully");
+				request.setAttribute("status", "update Successfully");
 				RequestDispatcher rd=request.getRequestDispatcher("jsp/admin/settings/addClient.jsp");
 				rd.include(request, response);
 			}
