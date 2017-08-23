@@ -71,4 +71,12 @@
     <servlet-name>SaleSupply</servlet-name>
     <url-pattern>/SaleSupply</url-pattern>
   </servlet-mapping>
+   <servlet>
+    <servlet-name>AddClient</servlet-name>
+    <servlet-class>admin.settings.AddClient</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddClient</servlet-name>
+    <url-pattern>/AddClient</url-pattern>
+  </servlet-mapping>
 </web-app>
