@@ -13,6 +13,15 @@
     <url-pattern>/AddCustomer.do</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>JcbPocDetails</servlet-name>
+    <servlet-class>admin.JcbPocWork.JcbPocDetails</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>JcbPocDetails</servlet-name>
+    <url-pattern>/JcbPocDetails.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
     <description></description>
     <servlet-name>AddSupplyMaterial</servlet-name>
     <servlet-class>admin.settings.addsupplymaterial</servlet-class>
@@ -71,13 +80,4 @@
     <servlet-name>SaleSupply</servlet-name>
     <url-pattern>/SaleSupply</url-pattern>
   </servlet-mapping>
-   <servlet>
-    <servlet-name>AddClient</servlet-name>
-    <servlet-class>admin.settings.AddClient</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>AddClient</servlet-name>
-    <url-pattern>/AddClient</url-pattern>
-  </servlet-mapping>
-
 </web-app>

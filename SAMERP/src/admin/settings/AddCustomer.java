@@ -33,19 +33,7 @@ public class AddCustomer extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		PrintWriter out=response.getWriter();
-		GenericDAO dao = new GenericDAO();
-		
-		String Customer_query="SELECT * FROM `customer_master` where `intcustid`="+request.getParameter("q");
-		System.out.println(Customer_query);
-		List CustomerList=dao.getData(Customer_query);
-		System.out.println(CustomerList);
-		
-		Iterator itr = CustomerList.iterator();
-		while (itr.hasNext()) {
-			out.print(itr.next() + ",");
-
-		}
+		doPost(request,response);
 	}
 
 	/**
@@ -58,55 +46,62 @@ public class AddCustomer extends HttpServlet {
 		GenericDAO dao = new GenericDAO();
 
 		String custid = request.getParameter("custid");
+		String deleteid=request.getParameter("deleteid");
+		String upadateselect=request.getParameter("q");
+		
+		
 		String custName = request.getParameter("custname");
 		String address = request.getParameter("address");
 		String contactno = request.getParameter("contactno");
-
-		if (custid==null) {
-			
-			String Customer_query = "INSERT INTO `customer_master`(`intcustid`, `custname`, `address`, `contactno`) VALUES (DEFAULT,'"
-					+ custName + "','" + address + "','" + contactno + "')";
-
-			int Customer_result = dao.executeCommand(Customer_query);
-
-			if (Customer_result == 1) {
-				RequestDispatcher rd = request.getRequestDispatcher("jsp/admin/settings/addCustomer.jsp");
-				rd.forward(request, response);
-			} else {
-				out.print("something wrong");
-			}
-		} else {
-
-			String Customer_query = "UPDATE `customer_master` SET `custname`='"+custName+"',`address`='"+address+"',`contactno`='"+contactno+"' WHERE `intcustid`="+custid;
-
-			int Customer_result = dao.executeCommand(Customer_query);
-
-			if (Customer_result == 1) {
-				RequestDispatcher rd = request.getRequestDispatcher("jsp/admin/settings/addCustomer.jsp");
-				rd.forward(request, response);
-			} else {
-				out.print("something wrong");
-			}
-		}
-	}
-
-	/**
-	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)
-	 */
-	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		PrintWriter out=response.getWriter();
-		GenericDAO dao = new GenericDAO();
+		String rate = request.getParameter("rate");
 		
-		String Customer_query="DELETE FROM `customer_master` WHERE `intcustid`="+request.getParameter("q");
-		System.out.println(Customer_query);
-		int Customer_result = dao.executeCommand(Customer_query);
+		
+		String Customer_query="";
+		int Customer_result=0;
 
-		if (Customer_result == 1) {
-			RequestDispatcher rd = request.getRequestDispatcher("jsp/admin/settings/addCustomer.jsp");
-			rd.forward(request, response);
-		} else {
-			out.print("something wrong");
+		if (custid==null && deleteid==null && upadateselect==null) {
+			
+			Customer_query = "INSERT INTO `customer_master`(`intcustid`, `custname`, `address`, `contactno`, `rate`) VALUES (DEFAULT,'"
+					+ custName + "','" + address + "','" + contactno + "','" + rate + "')";
 
+			Customer_result = dao.executeCommand(Customer_query);
+
+			if (Customer_result == 1) {
+				response.sendRedirect("jsp/admin/settings/addCustomer.jsp");
+			} else {
+				out.print("something wrong");
+			}
+		} else if (deleteid==null && upadateselect==null) {
+
+			Customer_query = "UPDATE `customer_master` SET `custname`='"+custName+"',`address`='"+address+"',`contactno`='"+contactno+"',`rate`='"+rate+"' WHERE `intcustid`="+custid;
+
+			Customer_result = dao.executeCommand(Customer_query);
+
+			if (Customer_result == 1) {
+				response.sendRedirect("jsp/admin/settings/addCustomer.jsp");
+			} else {
+				out.print("something wrong");
+			}
+		}else if (upadateselect==null) {
+			Customer_query="DELETE FROM `customer_master` WHERE `intcustid`="+deleteid;
+			Customer_result = dao.executeCommand(Customer_query);
+
+			if (Customer_result == 1) {
+				response.sendRedirect("jsp/admin/settings/addCustomer.jsp");
+				
+			} else {
+				out.print("something wrong");
+
+			}
+		}else {
+			Customer_query="SELECT * FROM `customer_master` where `intcustid`="+upadateselect;
+			List CustomerList=dao.getData(Customer_query);
+			
+			Iterator itr = CustomerList.iterator();
+			while (itr.hasNext()) {
+				out.print(itr.next() + "~");
+
+			}
 		}
 	}
 
