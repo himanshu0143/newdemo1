@@ -56,7 +56,7 @@
       </ul>
     </li>
     <li><a href="widgets.html"><i class="fa fa-inbox"></i> <span>Sale</span></a> </li>
-    <li><a href="tables.html"><i class="fa fa-th"></i> <span>Purchase</span></a></li>
+    <li><a href="/SAMERP/jsp/admin/purchase/purchaseRawMaterial.jsp"><i class="fa fa-th"></i> <span>Purchase</span></a></li>
     <li><a href="/SAMERP/jsp/admin/settings/expenses.jsp"><i class="fa fa-money"></i> <span>Expenses</span></a> </li>
     <li><a href="grid.html"><i class="fa fa-fullscreen"></i> <span>Work Details</span></a></li>
     <li><a href="interface.html"><i class="fa fa-pencil"></i> <span>Report</span></a></li>
