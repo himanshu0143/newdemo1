@@ -40,7 +40,7 @@
     z-index: 1;
     left: 50%;
     top: 80px;
-    font-size: 17px;
+    font-size: 14px;
 }
 
 #snackbar.show {
@@ -149,26 +149,16 @@
           <form action="/SAMERP/Expenses.do" method="post" class="form-horizontal">
            <div class="col-md-5 offset1">
             <div class="control-group col-md-6">
-              <label class="control-label">Expense -Type :</label>
-              <div class="controls">
-                <select class="span6" name="expensetype" onclick="document.getElementById('ttipnext').style.visibility='visible';" id="expenseType">
-	                  <option selected >Select</option>
-	                  <% RequireData rd=new RequireData();
-	                  List expenselist=rd.getExpensesType();
-	                  if(expenselist!=null){
-		                  Iterator exttypeitr=expenselist.iterator();
-		                  while(exttypeitr.hasNext()){%>
-	                  <option value="<%=exttypeitr.next()%>"><%=exttypeitr.next() %></option>
-	                  <%}} %>
-	                </select>
-              </div>
+              <label class="control-label" style="width:200px">Expense -Type :</label>
+             <input name="expType" list="getList" style="width: 272px;position: relative;left: 20px;" id="expenses_type_name" onkeyup="searchName2(this.value,this.id)" onblur="checkData(this.value,this.id)" autocomplete="off" type="text" class="span4" placeholder="Expence Type" required/>
+             <datalist id="getList"></datalist>
             </div>
             </div>
            <div class="col-md-8 offset1">
             <div class="control-group">
               <label class="control-label">Giving To :</label>
               <div class="controls">
-                <input list="getList" id="name" onkeyup="searchName(this.value,this.id)" onblur="document.getElementById('getList').innerHTML='';" autocomplete="off" type="text" class="span6" name="name" placeholder="Name" required/>
+                <input list="getList" id="name" onkeyup="searchName(this.value,this.id)" onblur="" autocomplete="off" type="text" class="span6" name="name" placeholder="Name" required/>
               	<datalist id="getList"></datalist>
               </div>
             </div>
@@ -188,7 +178,8 @@
                 <select required class="span6" name="type">
                   <option selected >Select</option>
                   <option value="CASH">CASH</option>
-                  <%List aliasnamelist=rd.getBankAliasName();
+                  <%RequireData rd=new RequireData();
+                  List aliasnamelist=rd.getBankAliasName();
                   if(aliasnamelist!=null){
 	                  Iterator aliasitr=aliasnamelist.iterator();
 	                  while(aliasitr.hasNext()){
@@ -300,22 +291,12 @@
 <script>
 
 function myFunction() {
-	document.getElementById("name").focus();
+	document.getElementById("expenses_type_name").focus();
     var x = document.getElementById("snackbar");
     x.className = "show";
     setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
     
 }
-function getReveal()
-{	
-	var x=document.getElementById("adding_Part");
-	if(x.style.display==='none')
-		{
-		x.style.display='block';}
-	else
-		{
-		x.style.display='none';}
-	}
 function searchName(str,id) {
 	if (str == " ") {
 		document.getElementById(id).value="";
@@ -338,6 +319,98 @@ function searchName(str,id) {
 			xhttp.send();
 		}
 	}
+}
+function searchName2(str,id) {
+	if (str == " ") {
+		document.getElementById(id).value="";
+	}
+	else if(str==""){
+		document.getElementById("getList").innerHTML="";
+	}
+	else{
+		if(!document.getElementById(id).value==""){
+			var xhttp;
+			document.getElementById(id).value=str.toUpperCase();
+			xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					var demoStr = this.responseText;
+					document.getElementById("getList").innerHTML = demoStr;
+					}
+				};
+			xhttp.open("POST", "/SAMERP/Expenses.do?findExpType="+str+"&id="+id, true);
+			xhttp.send();
+		}
+	}
+}
+function checkData(str,id) {
+	if (str == " ") {
+		document.getElementById(id).value="";
+	}
+	else if(str==""){
+		document.getElementById("getList").innerHTML="";
+	}
+	else{
+		document.getElementById('getList').innerHTML='';
+		if(!document.getElementById(id).value==""){
+			var xhttp;
+			document.getElementById(id).value=str.toUpperCase();
+			xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					var demoStr = this.responseText.split(",");
+						if(demoStr[0]==0)
+						{
+							if (confirm("Are You Want To Add "+demoStr[1]) == true) {
+						        insertData(str);
+						    }
+							else{
+								document.getElementById(id).value="";
+								document.getElementById("getList").innerHTML="";
+								document.getElementById(id).focus();
+							}
+							}
+							
+					}
+				};
+			xhttp.open("POST", "/SAMERP/Expenses.do?insertName="+str, true);
+			xhttp.send();
+		}
+	}
+}
+function insertData(str) {
+	if(str=="")
+		{
+		   alert("something wrong happening");
+		   document.getElementById("expenses_type_name").value="";
+		   document.getElementById("expenses_type_name").focus();
+			document.getElementById("getList").innerHTML="";
+		}
+	else
+		{
+		var xhttp;
+		xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				var newdata = this.responseText.split(",");
+				if(newdata[0]==1)
+					{
+					var newDiv=document.createElement("DIV");
+					newDiv.id="snackbar";
+					document.body.appendChild(newDiv);
+					var x = document.getElementById("snackbar");
+					x.innerHTML=newdata[1];
+				    x.className = "show";
+				    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+					}
+					
+				}
+			};
+		xhttp.open("POST","/SAMERP/Expenses.do?addNewExpType="+str, true);
+		xhttp.send();
+			
+		}
+		
 }
 function getExpOptions() {
 	if(document.getElementById('ddd').value=="")

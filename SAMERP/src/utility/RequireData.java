@@ -59,6 +59,7 @@ public class RequireData
 	
 	// sandeep start
 	
+	
 	public List getClientDetails()
 	{
 		String query="select `client_id`,`client_orgnization_name`,`client_name`,`client_contactno1`,`client_contactno2`,`client_email`,`client_address`,`client_balance_amount` from `client_details`";
