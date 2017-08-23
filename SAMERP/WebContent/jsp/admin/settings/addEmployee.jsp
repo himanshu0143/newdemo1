@@ -197,7 +197,7 @@
                   <td style="text-align: center"><%=itr.next() %></td>
                   <td style="text-align: center"><a href="#">Update</a>|<a href="/SAMERP/AddEmployee?deleteId=<%=empId%>">Delete</a></td>
                 </tr>
-                <%}} %>
+                <%itr.next();}} %>
               </tbody>
             </table>
           </div>
