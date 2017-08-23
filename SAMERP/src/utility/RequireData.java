@@ -16,6 +16,17 @@ public class RequireData
 		List CustomerList=gd.getData(Customer_query);
 		return CustomerList;
 	}
+	
+	public List getVehicleList() {
+		String Vehicle_query="SELECT `vehicle_id`,`vehicle_aliasname` FROM `vehicle_details`";
+		List VehicleList=gd.getData(Vehicle_query);
+		return VehicleList;
+	}
+	public List getJcbPocWorkDetail() {
+		String JcbPocWorkDetail_query="SELECT customer_master.`custname`,jcbpoc_master.`chalanno`,vehicle_details.vehicle_aliasname,jcbpoc_master.`data`,jcbpoc_master.`workhr`,jcbpoc_master.intjcbpocid FROM `jcbpoc_master`,customer_master,vehicle_details WHERE jcbpoc_master.intcustid=customer_master.intcustid AND jcbpoc_master.intvehicleid=vehicle_details.vehicle_id ORDER BY jcbpoc_master.intjcbpocid DESC";
+		List JcbPocWorkList=gd.getData(JcbPocWorkDetail_query);
+		return JcbPocWorkList;
+	}
 		//--himanshu end
 	
 	// mukesh start

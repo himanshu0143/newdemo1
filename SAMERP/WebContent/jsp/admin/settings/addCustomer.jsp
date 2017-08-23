@@ -212,6 +212,14 @@ to {
 											onkeypress="return isNumber(event)" maxlength="10" />
 									</div>
 								</div>
+								<div class="control-group">
+									<label class="control-label">Rate :</label>
+									<div class="controls">
+										<input type="text" name="rate" class="span3"
+											placeholder="Contact Number"
+											onkeypress="return isNumber(event)" maxlength="10" />
+									</div>
+								</div>
 
 
 								<div class="form-actions">
@@ -244,6 +252,7 @@ to {
 										<th>Customer Name</th>
 										<th>Address</th>
 										<th>Contact No</th>
+										<th>Rate</th>
 										<th>Action</th>
 									</tr>
 								</thead>
@@ -256,6 +265,7 @@ to {
 									String custname = "";
 									String address = "";
 									String contact_no = "";
+									String rate = "";
 
 									if (details != null) {
 										System.out.println("in Print Invoice.jsp" + details);
@@ -270,15 +280,17 @@ to {
 												custname = itr.next().toString();
 												address = itr.next().toString();
 												contact_no = itr.next().toString();
+												rate = itr.next().toString();
 									%>
 									<tr class="gradeX">
 										<td><%=srno%></td>
 										<td><%=custname%></td>
 										<td><%=address%></td>
 										<td><%=contact_no%></td>
+										<td><%=rate%></td>
 										<td><a href="#update" data-toggle='modal'
 											onclick='getSr(<%=custid%>)'>Update</a> / <a
-											href="" onclick="DeleteCustomer(<%=custid%>)">Delete</a></td>
+											href="/SAMERP/AddCustomer.do?deleteid=<%=custid%>">Delete</a></td>
 									</tr>
 									<%
 										}
@@ -310,7 +322,7 @@ to {
 
 	<!--end-Footer-part-->
 	<!-- Model -->
-	<div class="modal fade" id="update" role="dialog">
+	<div class="modal fade hide" id="update" role="dialog">
 		<div class="modal-dialog">
 		<form action="/SAMERP/AddCustomer.do" method="post"
 						class="form-horizontal" name="customerupdateform">
@@ -343,6 +355,14 @@ to {
 									onkeypress="return isNumber(event)"  maxlength="10" />
 									<input type="hidden" name="custid" id="custid"/>
 							</div>
+						</div>
+						<div class="control-group">
+									<label class="control-label">Rate :</label>
+									<div class="controls">
+										<input type="text" name="rate" id="update_rate" class="span3"
+											placeholder="Rate"
+											onkeypress="return isNumber(event)" maxlength="10" />
+									</div>
 						</div>
 
 
@@ -380,12 +400,13 @@ function getSr(id){
 		try{ 
 		xhttp.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
-				var demoStr = this.responseText.split(",");
+				var demoStr = this.responseText.split("~");
 				
  				document.getElementById("custid").value = demoStr[0];
  				document.getElementById("update_custname").value = demoStr[1];
  				document.getElementById("update_address").value = demoStr[2];
  				document.getElementById("update_contactno").value = demoStr[3];
+ 				document.getElementById("update_rate").value = demoStr[4];
  				
 			}
 
@@ -406,13 +427,13 @@ function DeleteCustomer(id){
 	try{ 
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			var demoStr = this.responseText.split(",");
+			var demoStr = this.responseText.split("~");
 				
 		}
 
 	};
 	
-	xhttp.open("doDelete", "/SAMERP/AddCustomer.do?q=" + id, true);
+	xhttp.open("POST", "/SAMERP/AddCustomer.do?deleteid=" + id, true);
 	xhttp.send();
 	}
 	catch(e)

@@ -4,7 +4,6 @@
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
-  
   <servlet>
     <servlet-name>AddCustomer</servlet-name>
     <servlet-class>admin.settings.AddCustomer</servlet-class>
@@ -12,6 +11,14 @@
   <servlet-mapping>
     <servlet-name>AddCustomer</servlet-name>
     <url-pattern>/AddCustomer.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>JcbPocDetails</servlet-name>
+    <servlet-class>admin.JcbPocWork.JcbPocDetails</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>JcbPocDetails</servlet-name>
+    <url-pattern>/JcbPocDetails.do</url-pattern>
   </servlet-mapping>
   
   <servlet>
