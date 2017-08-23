@@ -64,6 +64,22 @@ public class RequireData
 	//--omkar end
 	
 	// sandeep start
+	public List getClientDetails()
+	{
+		String query="select `client_id`,`client_orgnization_name`,`client_name`,`client_contactno1`,`client_contactno2`,`client_email`,`client_address`,`client_balance_amount` from `client_details`";
+		System.out.println("query is:"+query);
+		List list=gd.getData(query);
+		return list;		
+	}
+	
+	public List setClientDetails(String cid)
+	{
+		String id=cid;
+		String query="select `client_orgnization_name`,`client_name`,`client_contactno1`,`client_contactno2`,`client_email`,`client_address`,`client_balance_amount` from `client_details`";
+		List list=gd.getData(query);
+		return list;
+		
+	}
 	
 		//--sandeep end
 	

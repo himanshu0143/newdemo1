@@ -31,7 +31,8 @@
     <servlet-name>AddVehicles</servlet-name>
     <url-pattern>/AddVehicles</url-pattern>
   </servlet-mapping>
-  <servlet>
+  
+   <servlet>
     <description></description>
     <servlet-name>AddAccountDetails</servlet-name>
     <servlet-class>admin.settings.AddAccountDetails</servlet-class>
@@ -40,6 +41,7 @@
     <servlet-name>AddAccountDetails</servlet-name>
     <url-pattern>/AddAccountDetails</url-pattern>
   </servlet-mapping>
+  
   <servlet>
     <description></description>
     <servlet-name>Expenses</servlet-name>
